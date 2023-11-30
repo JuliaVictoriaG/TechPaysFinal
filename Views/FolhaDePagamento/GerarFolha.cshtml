@@ -1,0 +1,52 @@
+﻿
+@model FolhaDePagamentoModel
+@{
+    ViewData["Title"] = "Gerar Folha";
+}
+
+
+<div>
+    <div class="text-center">
+
+        <h1 class="display-4">Cadastrar</h1>
+
+    </div>
+    <form asp-controller="FolhaDePagamento" asp-action="GerarFolha" method="post">
+       
+        
+        <div class="form-group">
+            <label for="estado">Mes</label>
+            <input type="text" class="form-control" placeholder="Digite o mês de refêrencia">
+
+        </div>
+        <div class="form-group">
+            <label for="cargo">Cargo</label>
+            <input type="text" class="form-control" placeholder="Digite o ano de refêrencia">
+
+        </div>
+        <div class="form-group">
+            <label for="departamento">Departamento</label>
+            <input type="text" class="form-control" placeholder="Digite a identificação do funcionário">
+
+        </div>
+        <div class="form-group">
+            <label for="ctps">Carteira de Trabalho</label>
+            <input type="text" class="form-control" placeholder="">
+
+        </div>
+        <div class="form-group">
+            <label for="sálario">Salário Bruto</label>
+            <input type="text" class="form-control" placeholder="Salário Bruto">
+
+        </div>
+        <div class="form-group">
+            <label for="admissao">Data de Admissão</label>
+            <input type="text" class="form-control" placeholder="Data de Admissão">
+
+        </div>
+
+        <br />
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a class="btn btn-secondary" asp-controller="Home" asp-action="Index"> Voltar</a>
+    </form>
+</div>
