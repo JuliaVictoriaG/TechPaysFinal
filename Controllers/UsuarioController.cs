@@ -27,9 +27,9 @@ namespace TechPays.Controllers
 
             public IActionResult Index()
             {
-                List<UsuarioModel> usuarios = _usuarioRepository.BuscarTodos();
+                //List<UsuarioModel> usuarios = _usuarioRepository.BuscarTodos();
 
-                return View(usuarios);
+                return View();
             }
 
             public IActionResult Cadastrar()

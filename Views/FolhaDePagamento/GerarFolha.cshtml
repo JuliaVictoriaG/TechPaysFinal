@@ -1,5 +1,5 @@
 ﻿
-@model FolhaDePagamentoModel
+@model FuncionarioModel
 @{
     ViewData["Title"] = "Gerar Folha";
 }
@@ -11,42 +11,57 @@
         <h1 class="display-4">Cadastrar</h1>
 
     </div>
-    <form asp-controller="FolhaDePagamento" asp-action="GerarFolha" method="post">
+    <form asp-controller="FolhaDePagamento" asp-action="CalcularSalario" method="post">
        
         
         <div class="form-group">
             <label for="estado">Mes</label>
-            <input type="text" class="form-control" placeholder="Digite o mês de refêrencia">
+            <input type="text"  class="form-control" placeholder="Digite o mês de refêrencia">
+
+        </div>
+        <div class="form-group">
+            <label for="ctps">Nome do Funcionário</label>
+            <input type="text" asp-for="func_nome" class="form-control" placeholder="Digite o nome do funcionário">
 
         </div>
         <div class="form-group">
             <label for="cargo">Cargo</label>
-            <input type="text" class="form-control" placeholder="Digite o ano de refêrencia">
+            <input type="text" asp-for="func_cargo"class="form-control" placeholder="Digite o ano de refêrencia">
 
         </div>
         <div class="form-group">
             <label for="departamento">Departamento</label>
-            <input type="text" class="form-control" placeholder="Digite a identificação do funcionário">
-
-        </div>
-        <div class="form-group">
-            <label for="ctps">Carteira de Trabalho</label>
-            <input type="text" class="form-control" placeholder="">
+            <input type="text" asp-for="func_departamento" class="form-control" placeholder="Digite a identificação do funcionário">
 
         </div>
         <div class="form-group">
             <label for="sálario">Salário Bruto</label>
-            <input type="text" class="form-control" placeholder="Salário Bruto">
+            <input type="text" asp-for="func_salario_bruto" class="form-control" placeholder="Salário Bruto">
+
+        </div>
+        <div class="form-group">
+            <label for="ctps">Vale Transporte</label>
+            <input type="text" asp-for="func_vale_transporte" class="form-control" placeholder="Digite o valor recebido de vale transporte">
+
+        </div>
+        <div class="form-group">
+            <label for="ctps">FGTS</label>
+            <input type="text" asp-for="func_fgts"class="form-control" placeholder="Digite o FGTS">
+
+        </div>
+        <div class="form-group">
+            <label for="ctps">INSS</label>
+            <input type="text" asp-for="func_inss" class="form-control" placeholder="Digite o INSS">
 
         </div>
         <div class="form-group">
             <label for="admissao">Data de Admissão</label>
-            <input type="text" class="form-control" placeholder="Data de Admissão">
+            <input type="text" asp-for="func_dt_admissao" class="form-control" placeholder="Data de Admissão">
 
         </div>
 
         <br />
-        <button type="submit" class="btn btn-primary">Salvar</button>
+        <button type="submit" class="btn btn-primary">Gerar Folha</button>
         <a class="btn btn-secondary" asp-controller="Home" asp-action="Index"> Voltar</a>
     </form>
 </div>

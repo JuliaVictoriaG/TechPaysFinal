@@ -1,4 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+
+using Microsoft.AspNetCore.Routing;
+using System.ComponentModel.DataAnnotations;
 
 namespace TechPays.Models
 {
@@ -54,11 +59,45 @@ namespace TechPays.Models
 
         public UsuarioModel Usuario { get; set; }
 
-        //public double CalcularSalario()
-        //{
-        //    double salarioTotal = func_salario_bruto + (func_hora_trab - 40) * 10;
+      
 
-        //    return salarioTotal;
-        //}
+        public void GerarFolhaPagamentoPDF()
+        {
+            string filePath = $"FolhaPagamento.{DateTime.Now.ToString("yyyy.MM.dd.HH.mm.ss")}..pdf";
+           
+          
+                using (var writer = new PdfWriter(filePath))
+            {
+                using (var pdf = new PdfDocument(writer))
+                {
+                    var document = new Document(pdf);
+                   
+                    
+
+                    // Adiciona conteúdo ao PDF
+                    document.Add(new Paragraph("Folha de Pagamento"));
+                    document.Add(new Paragraph($"TechPays Serviços de Automatização Ltda."));
+                    document.Add(new Paragraph($"17.037.433/0001-14 "));
+                    document.Add(new Paragraph($"Rua Luciana Maria Machado"));
+                    document.Add(new Paragraph($"Mês de Referência: 10"));
+
+                    document.Add(new Paragraph($"Nome do Funcionário: {func_nome}"));
+                    document.Add(new Paragraph($"Data de Admissão: {func_dt_admissao}"));
+                    document.Add(new Paragraph($"Cargo: {func_cargo}"));
+                    document.Add(new Paragraph($"Salário Bruto: R${func_salario_bruto}"));
+                    document.Add(new Paragraph($"Descontos: R${func_vale_transporte}"));
+                    document.Add(new Paragraph($"Descontos: R${func_fgts}"));
+                    document.Add(new Paragraph($"Descontos: R${func_inss}"));
+                    document.Add(new Paragraph($"Salário Líquido: R${func_salario_liquido}"));
+
+                    document.Close();
+                }
+
+            }
+
+            Console.WriteLine($"Folha de pagamento salva em: {Path.GetFullPath(filePath)}");
+        }
+
     }
+    
 }

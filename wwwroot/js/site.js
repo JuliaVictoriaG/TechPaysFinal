@@ -7,6 +7,7 @@
 $(document).ready(function () {
     $('#table-funcionario').DataTable();
     $('#table-empresa').DataTable();
+    $('#table-usuarios').DataTable();
 
 
 

@@ -38,7 +38,7 @@ namespace TechPays.Repository
         public UsuarioModel Adicionar(UsuarioModel usuario)
         {
             usuario.DataCadastro = DateTime.Now;
-            usuario.SetSenhaHash();
+            //usuario.SetSenhaHash();
             _db.Usuario.Add(usuario);
             _db.SaveChanges();
             return usuario;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 using TechPays.Helper;
 using TechPays.Models;
 using TechPays.Repository;
@@ -22,7 +23,7 @@ namespace TechPays.Controllers
         {
             // Se usuario estiver logado, redirecionar para a home
 
-            if (_sessao.BuscarSessaoDoUsuario() != null) return RedirectToAction("Index", "Home");
+            if (_sessao.BuscarSessaoDoUsuario() != null) return RedirectToAction("Index", "Home", "Index","Funcionario");
 
             return View();
         }
@@ -42,74 +43,96 @@ namespace TechPays.Controllers
         [HttpPost]
         public IActionResult Entrar(LoginModel loginModel)
         {
+
             try
             {
                 if (ModelState.IsValid)
                 {
-                    UsuarioModel usuario = _usuarioRepository.BuscarPorLogin(loginModel.login);
-
-                    if (usuario != null)
+                    if(loginModel.login == "adm" && loginModel.senha == "123")
                     {
-                        if (usuario.SenhaValida(loginModel.senha))
-                        {
-                            _sessao.CriarSessaoDoUsuario(usuario);
-                            return RedirectToAction("Index", "Home");
-                        }
+                       return RedirectToAction("Index", "Home");
 
-                        TempData["MensagemErro"] = $"Senha do usuário é inválida, tente novamente.";
                     }
-
                     TempData["MensagemErro"] = $"Usuário e/ou senha inválido(s). Por favor, tente novamente.";
                 }
-
                 return View("Index");
             }
+
             catch (Exception erro)
             {
-                TempData["MensagemErro"] = $"Ops, não conseguimos realizar seu login, tente novamante, detalhe do erro: {erro.Message}";
+                TempData["MensagemErro"] = $"Ops, não conseguimoos realizar seu login, tente novamnete, detalhe do erro: {erro.Message}";
                 return RedirectToAction("Index");
             }
         }
+        //try
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        UsuarioModel usuario = _usuarioRepository.BuscarPorLogin(loginModel.login);
 
-        [HttpPost]
-        public IActionResult EnviarLinkParaRedefinirSenha(RedefinirSenhaModel redefinirSenhaModel)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    UsuarioModel usuario = _usuarioRepository.BuscarPorEmailELogin(redefinirSenhaModel.Email, redefinirSenhaModel.Login);
+        //        if (usuario != null)
+        //        {
+        //            if (usuario.SenhaValida(loginModel.senha))
+        //            {
+        //                _sessao.CriarSessaoDoUsuario(usuario);
+        //                return RedirectToAction("Index", "Home");
+        //            }
 
-                    if (usuario != null)
-                    {
-                        string novaSenha = usuario.GerarNovaSenha();
-                        string mensagem = $"Sua nova senha é: {novaSenha}";
+        //            TempData["MensagemErro"] = $"Senha do usuário é inválida, tente novamente.";
+        //        }
 
-                        bool emailEnviado = _email.Enviar(usuario.Email, "Sistema de Contatos - Nova Senha", mensagem);
+        //        TempData["MensagemErro"] = $"Usuário e/ou senha inválido(s). Por favor, tente novamente.";
+        //    }
 
-                        if (emailEnviado)
-                        {
-                            _usuarioRepository.Atualizar(usuario);
-                            TempData["MensagemSucesso"] = $"Enviamos para seu e-mail cadastrado uma nova senha.";
-                        }
-                        else
-                        {
-                            TempData["MensagemErro"] = $"Não conseguimos enviar e-mail. Por favor, tente novamente.";
-                        }
+        //    return View("Index");
+        //}
+        //catch (Exception erro)
+        //{
+        //    TempData["MensagemErro"] = $"Ops, não conseguimos realizar seu login, tente novamante, detalhe do erro: {erro.Message}";
+        //    return RedirectToAction("Index");
+        //}
+        //}
 
-                        return RedirectToAction("Index", "Login");
-                    }
+        //[HttpPost]
+        //public IActionResult EnviarLinkParaRedefinirSenha(RedefinirSenhaModel redefinirSenhaModel)
+        //{
+        //    try
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            UsuarioModel usuario = _usuarioRepository.BuscarPorEmailELogin(redefinirSenhaModel.Email, redefinirSenhaModel.Login);
 
-                    TempData["MensagemErro"] = $"Não conseguimos redefinir sua senha. Por favor, verifique os dados informados.";
-                }
+        //            if (usuario != null)
+        //            {
+        //                string novaSenha = usuario.GerarNovaSenha();
+        //                string mensagem = $"Sua nova senha é: {novaSenha}";
 
-                return View("Index");
-            }
-            catch (Exception erro)
-            {
-                TempData["MensagemErro"] = $"Ops, não conseguimos redefinir sua senha, tente novamante, detalhe do erro: {erro.Message}";
-                return RedirectToAction("Index");
-            }
-        }
+        //                bool emailEnviado = _email.Enviar(usuario.Email, "Sistema de Contatos - Nova Senha", mensagem);
+
+        //                if (emailEnviado)
+        //                {
+        //                    _usuarioRepository.Atualizar(usuario);
+        //                    TempData["MensagemSucesso"] = $"Enviamos para seu e-mail cadastrado uma nova senha.";
+        //                }
+        //                else
+        //                {
+        //                    TempData["MensagemErro"] = $"Não conseguimos enviar e-mail. Por favor, tente novamente.";
+        //                }
+
+        //                return RedirectToAction("Index", "Login");
+        //            }
+
+        //            TempData["MensagemErro"] = $"Não conseguimos redefinir sua senha. Por favor, verifique os dados informados.";
+        //        }
+
+        //        return View("Index");
+        //    }
+        //    catch (Exception erro)
+        //    {
+        //        TempData["MensagemErro"] = $"Ops, não conseguimos redefinir sua senha, tente novamante, detalhe do erro: {erro.Message}";
+        //        return RedirectToAction("Index");
+        //    }
+        //}
     }
 }
+

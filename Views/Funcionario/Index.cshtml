@@ -12,7 +12,7 @@
 
     </div>
 
-    @if(TempData["MensagemSucesso"] !=null)
+   @*  @if(TempData["MensagemSucesso"] !=null)
     {
         <div class= "alert alert-success text-light" role="alert">
             @TempData["MensagemSucesso"]
@@ -26,11 +26,11 @@
             @TempData["MensagemErro"]
             </div>
 
-    }
+    } *@
 
 
     <h1 class="display-4">Funcionários</h1>
-    <table id="Funcionario" class="table-funcionario">
+    <table id="table-funcionario" class="table">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -42,7 +42,7 @@
         </thead>
         <tbody>
 
-            @if(Model != null)
+           @*  @if(Model != null)
             {
                 @foreach( var funcionario in Model)
                 {
@@ -59,7 +59,7 @@
                                 <a role="button" class="btn btn-danger" asp-area="" asp-controller="Funcionario" asp-action="Excluir">Excluir</a>
                             </div>
                         </td>
-                    </tr>
+                    </tr> *@
                    @* <tr>
                         <th scope="row">2</th>
                         <td>Jacob</td>
@@ -84,9 +84,9 @@
                                 <a role="button" class="btn btn-danger" asp-controller="Funcionario" asp-action="Excluir">Excluir</a>
                             </div>
                         </td>
-                    </tr>*@
+                    </tr>
                 }
-            }
+                }*@
            
         </tbody>
     </table>

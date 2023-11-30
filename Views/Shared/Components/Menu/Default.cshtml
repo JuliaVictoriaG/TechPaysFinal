@@ -13,12 +13,18 @@
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Funcionario" asp-action="Index">Funcionários</a>
         </li>
-
-        @if (Model.Perfil == TechPays.Enumeration.PerfilEnum.Admin)
-        {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Empresa" asp-action="Index">Empresas</a>
+        </li>
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Index">Usuários</a>
             </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="FolhaDePagamento" asp-action="Index">Gerar Folha de pagametno</a>
+        </li>
+
+        @if (Model.Perfil == TechPays.Enumeration.PerfilEnum.Admin)
+        {
         }
 
         <li class="nav-item">

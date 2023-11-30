@@ -25,7 +25,7 @@ namespace TechPays.Models
 
         public bool SenhaValida(string senha)
         {
-            return Senha == senha.GerarHash();
+            return Senha.Trim().Equals(senha.Trim());
         }
 
         public void SetSenhaHash()
@@ -35,13 +35,13 @@ namespace TechPays.Models
 
         public void SetNovaSenha(string novaSenha)
         {
-            Senha = novaSenha.GerarHash();
+            Senha = novaSenha;
         }
 
         public string GerarNovaSenha()
         {
             string novaSenha = Guid.NewGuid().ToString().Substring(0, 8);
-            Senha = novaSenha.GerarHash();
+            Senha = novaSenha;
             return novaSenha;
         }
     }
